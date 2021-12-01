@@ -1,11 +1,26 @@
 <template>
-  <div id="app">Start</div>
+  <div id="app">
+    <p v-for="item in rows" :key="item.id">{{ item }}</p>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "App",
   components: {},
+  data() {
+    return {
+      rows: [],
+    };
+  },
+  async created() {
+    const res = await axios.get(
+      `https://jsonplaceholder.typicode.com/comments`
+    );
+    this.rows = res.data;
+  },
 };
 </script>
 
